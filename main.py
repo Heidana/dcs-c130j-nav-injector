@@ -1,7 +1,9 @@
 import sys
 import sqlite3
 import shutil
+import shutil
 import re
+import json
 import mgrs  # pip install mgrs
 from pathlib import Path
 from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
@@ -13,6 +15,7 @@ from PySide6.QtGui import QAction, QColor, QPalette, QFont
 
 # --- CONFIGURATION ---
 DEFAULT_DB_PATH = Path.home() / "Saved Games" / "DCS.C130J" / "user_data.db"
+CONFIG_FILE = Path("config.json")
 BACKUP_EXTENSION = ".bak"
 VERSION = "1.1.0"
 
@@ -192,7 +195,37 @@ class MainWindow(QMainWindow):
         
         self.db = None
         self.setup_ui()
+        self.setup_menu()
         self.init_db()
+
+    def load_config(self):
+        if CONFIG_FILE.exists():
+            try:
+                with open(CONFIG_FILE, "r") as f:
+                    config = json.load(f)
+                    return config.get("last_db_path")
+            except Exception:
+                pass
+        return None
+
+    def save_config(self, path):
+        try:
+            with open(CONFIG_FILE, "w") as f:
+                json.dump({"last_db_path": str(path)}, f)
+        except Exception:
+            pass
+
+    def setup_menu(self):
+        menu_bar = self.menuBar()
+        file_menu = menu_bar.addMenu("File")
+        
+        open_action = QAction("Open Database...", self)
+        open_action.triggered.connect(self.prompt_for_db)
+        file_menu.addAction(open_action)
+        
+        exit_action = QAction("Exit", self)
+        exit_action.triggered.connect(self.close)
+        file_menu.addAction(exit_action)
 
     def apply_dark_theme(self):
         palette = QPalette()
@@ -261,18 +294,28 @@ class MainWindow(QMainWindow):
         layout.addWidget(right_panel, 30)
 
     def init_db(self):
-        path = DEFAULT_DB_PATH
-        if not path.exists():
-            file_dialog = QFileDialog(self, "Locate C-130J user_data.db", str(Path.home()))
-            file_dialog.setNameFilter("Database (*.db)")
-            if file_dialog.exec():
-                path = Path(file_dialog.selectedFiles()[0])
-            else:
-                sys.exit() 
+        last_path = self.load_config()
+        if last_path and Path(last_path).exists():
+           path = Path(last_path)
+           self.connect_to_db(path)
+        else:
+           self.prompt_for_db()
 
+    def prompt_for_db(self):
+        file_dialog = QFileDialog(self, "Locate C-130J user_data.db", str(Path.home()))
+        file_dialog.setNameFilter("Database (*.db)")
+        if file_dialog.exec():
+            path = Path(file_dialog.selectedFiles()[0])
+            self.connect_to_db(path)
+        # If cancelled on first run (no DB loaded), we just sit there with empty UI, 
+        # or we could exit. For now, letting user stay in app is fine.
+
+    def connect_to_db(self, path):
         self.db = DatabaseManager(path)
         success, msg = self.db.connect()
         if success:
+            self.save_config(path)
+            self.setWindowTitle(f"C-130J Nav Injector v{VERSION} - {path.name}")
             self.refresh_table()
         else:
             QMessageBox.critical(self, "Error", msg)

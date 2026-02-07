@@ -8,3 +8,6 @@ __pycache__/
 calibrate_alt.py
 probe.py
 schema_dump.txt
+
+# Config
+config.json
