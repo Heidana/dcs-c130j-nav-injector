@@ -1,6 +1,6 @@
 # DCS C-130J Nav Injector
 
-An external tool to inject custom waypoints into the **DCS: Super Hercules** (C-130J) `user_data.db`.
+An external tool to inject custom waypoints into the **DCS: C-130J** `user_data.db`.
 
 This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, DDM, etc.) and inject them directly into the aircraft's navigation database without needing to manually punch them in via the CNI-MU.
 
@@ -22,10 +22,10 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
 2. **Requirements** (if running from source):
    - Python 3.10+
    - `pip install -r requirements.txt`
-3. **Location**: The tool attempts to automatically find your `user_data.db` in:
+3. **Location**: When you launch the application for the first time, you will be prompted to select your `user_data.db` file. It is typically located in:
    `%USERPROFILE%\Saved Games\DCS.C130J\user_data.db`
    
-   If not found, you will be prompted to select it manually.
+   **Configuration**: The tool remembers your last used database location in a local `config.json` file. You can change this at any time via **File > Open Database...**.
 
 ## Usage
 
