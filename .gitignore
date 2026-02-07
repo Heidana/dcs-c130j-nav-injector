@@ -3,11 +3,3 @@ __pycache__/
 *.db
 *.bak
 .vscode/
-
-# Test scripts
-calibrate_alt.py
-probe.py
-schema_dump.txt
-
-# Config
-config.json
