@@ -18,7 +18,7 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
 
 ## Installation
 
-1. **Download**: Grab the latest release (executable) or clone this repository.
+1. **Download**: Clone or download this repository.
 2. **Requirements** (if running from source):
    - Python 3.10+
    - `pip install -r requirements.txt`
@@ -29,7 +29,7 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
 
 ## Usage
 
-1. **Launch**: Run `main.py` (or the executable).
+1. **Launch**: Run `main.py`.
 2. **Connect**: The tool will load your existing custom waypoints.
 3. **Inject Data**:
    - **Name**: Enter a 1-5 character identifier (e.g., `DZ1`, `LZ2`).
@@ -40,9 +40,7 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
    - **Preview**: Verify the parsed location in the preview label (Green = Valid).
    - **Click "INJECT DATA"**.
 4. **In-Game**:
-   - Open the C-130J CNI-MU.
-   - Go to **NAV -> WPT**.
-   - Your injected points will be available in the custom database.
+   - The waypoints will be available in the CUSTOM DATA.
 
 ## Notes & Known Issues
 
