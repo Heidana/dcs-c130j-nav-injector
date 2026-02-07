@@ -40,7 +40,7 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
    - **Preview**: Verify the parsed location in the preview label (Green = Valid).
    - **Click "INJECT DATA"**.
 4. **In-Game**:
-   - The waypoints will be available in the CUSTOM DATA.
+   - The waypoints will be available in the CUSTOM DATA page of the CNI-MU.
 
 ## Notes & Known Issues
 
