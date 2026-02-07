@@ -42,11 +42,6 @@ This utility allows you to input coordinates in various formats (Lat/Lon, MGRS, 
 4. **In-Game**:
    - The waypoints will be available in the CUSTOM DATA page of the CNI-MU.
 
-## Notes & Known Issues
-
-- **Elevation**: Due to a bug in the current C-130J simulation, injecting altitude often causes issues. This tool currently sets all elevations to `NULL` (sim defaults to ~6500ft or ground level logic) to ensure stability.
-- **Zone Bug**: As mentioned in features, MGRS inputs for zones 10, 20, 30, etc., are automatically converted to Lat/Lon to avoid crashing the aircraft avionics.
-
 ## Disclaimer
 
-This is a community modification and is not affiliated with the developers of the DCS C-130J module. Always back up your `Saved Games` folder.
+This is a community modification and is not affiliated with the developers of the ASC C-130J module. Always back up your `Saved Games` folder.
